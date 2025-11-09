@@ -1,0 +1,9 @@
+.provincia-tooltip {
+  background-color: white;
+  color: black;
+  border-radius: 12px; /* redondea las esquinas */
+  padding: 4px 8px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* opcional: sombra suave */
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
