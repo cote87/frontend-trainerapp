@@ -67,23 +67,23 @@ export const useTrainers = () => {
 
     const [errors, setErrors] = useState(initialTrainerErrors);
 
-    const page = (searchParams.get("page") || 0);
+    let page = (searchParams.get("page") || 0);
 
-    const size = (searchParams.get("size") || 10);
+    let size = (searchParams.get("size") || 10);
 
-    const orderBy = (searchParams.get("orderBy") || "lastname");
+    let orderBy = (searchParams.get("orderBy") || "lastname");
 
-    const asc = (searchParams.get("asc") || "true");
+    let asc = (searchParams.get("asc") || "true");
 
-    const enabled = (searchParams.get("enabled") || "true");
+    let enabled = (searchParams.get("enabled") || "true");
 
-    const name = (searchParams.get("name") || "");
+    let name = (searchParams.get("name") || "");
 
     let lastname = (searchParams.get("lastname") || "");
 
-    const thematic = (searchParams.get("thematic") || "");
+    let thematic = (searchParams.get("thematic") || "");
 
-    const province = (searchParams.get("province") || "");
+    let province = (searchParams.get("province") || "");
 
     const [pageable, setPageable] = useState({});
 
