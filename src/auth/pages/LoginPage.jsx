@@ -1,6 +1,7 @@
 import { useState, useContext, useRef } from "react";
 import { Row, Col, Container, InputGroup, FormControl, Button, Overlay, Popover } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
+import PasswordInput from "../../components/PasswordInput";
 
 const initialLoginForm = {
     username: '',
@@ -110,18 +111,12 @@ export const LoginPage = () => {
                                                 style={{ objectFit: 'contain' }}
                                             />
                                         </InputGroup.Text>
-                                        <FormControl
+                                        <PasswordInput
                                             type="password"
                                             placeholder="Contraseña"
                                             value={password}
                                             onChange={onInputChange}
                                             name="password"
-                                            style={{
-                                                borderTopRightRadius: '50px',
-                                                borderBottomRightRadius: '50px',
-                                                border: 'none',
-                                                boxShadow: 'none',
-                                            }}
                                         />
                                     </InputGroup>
                                 </Row>

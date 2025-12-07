@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react"
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Form, Row } from "react-bootstrap"
+import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Form, InputGroup, Row } from "react-bootstrap"
 import { UserContext } from "../../context/User/UserContext"
 import { AuthContext } from "../context/AuthContext"
 import Swal from "sweetalert2"
+import { PasswordInputForm } from "../../components/PasswordInput"
 
 export const ProfileForm = () => {
     const {
@@ -68,31 +69,35 @@ export const ProfileForm = () => {
                         <Col>
                             <Row className="form-group">
                                 <label className="col-form-label fw-bold">Nombre de usuario:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Nombre de usuario"
-                                    name="username"
-                                    value={username || ''}
-                                    onChange={onInputChange}
-                                />
+                                <InputGroup>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Nombre de usuario"
+                                        name="username"
+                                        value={username || ''}
+                                        onChange={onInputChange}
+                                    />
+                                </InputGroup>
                                 <span className="text-danger">{errors?.username}</span>
                             </Row>
                             <Row className="form-group">
                                 <label className="col-form-label fw-bold">Nombre visible:</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Nombre visible"
-                                    name="nickname"
-                                    value={nickname || ''}
-                                    onChange={onInputChange}
-                                />
+                                <InputGroup>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Nombre visible"
+                                        name="nickname"
+                                        value={nickname || ''}
+                                        onChange={onInputChange}
+                                    />
+                                </InputGroup>
                                 <span className="text-danger">{errors?.nickname}</span>
                             </Row>
                             <Row className="form-group">
                                 <label className="col-form-label fw-bold">Contraseña Actual:</label>
-                                <input
+                                <PasswordInputForm
                                     type="password"
                                     className="form-control"
                                     placeholder="Contraseña actual"
@@ -104,7 +109,7 @@ export const ProfileForm = () => {
                             </Row>
                             <Row className="form-group">
                                 <label className="col-form-label fw-bold">Contraseña Nueva:</label>
-                                <input
+                                <PasswordInputForm
                                     type="password"
                                     className="form-control"
                                     placeholder="Contraseña nueva"
@@ -116,7 +121,7 @@ export const ProfileForm = () => {
                             </Row>
                             <Row className="form-group">
                                 <label className="col-form-label fw-bold">Confirmar Contraseña Nueva:</label>
-                                <input
+                                <PasswordInputForm
                                     type="password"
                                     className="form-control"
                                     placeholder="Confirmar contraseña nueva"

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/User/UserContext";
 import { TrainerContext } from "../../context/Trainer/TrainerContext";
 import { AuthContext } from "../../auth/context/AuthContext";
+import { PasswordInputForm } from "../PasswordInput";
 
 export const UserForm = () => {
 
@@ -274,7 +275,7 @@ export const UserForm = () => {
                     <div className="form-group row mb-3">
                         <label className="col-form-label col-3 fw-bold">Contraseña:</label>
                         <div className="col-9">
-                            <input
+                            <PasswordInputForm
                                 type="password"
                                 className="form-control"
                                 placeholder="Contraseña del usuario"
@@ -289,7 +290,7 @@ export const UserForm = () => {
                     <div className="form-group row mb-3">
                         <label className="col-form-label col-3 fw-bold">Repetir contraseña:</label>
                         <div className="col-9">
-                            <input
+                            <PasswordInputForm
                                 type="password"
                                 className="form-control"
                                 placeholder="Repetir contraseña"
