@@ -4,6 +4,7 @@ import { AuthContext } from "../../auth/context/AuthContext";
 import { Paginator } from "../layout/Paginator";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { changeRolename } from "../../utils/changeRolename";
 
 
 export const UserTable = () => {
@@ -100,7 +101,7 @@ export const UserTable = () => {
                                             {user.nickname}
                                         </td>
                                         <td>
-                                            {user.role.replace('ROLE_', '')}
+                                            {changeRolename(user.role)}
                                         </td>
                                         <td>
                                             {user.province?.name}

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Col, Container, Row } from "react-bootstrap"
 import { AuthContext } from "../context/AuthContext";
 import { TrainerContext } from "../../context/Trainer/TrainerContext";
+import { changeRolename } from "../../utils/changeRolename";
 
 const initialProfileForm = {
     nickname: '',
@@ -79,7 +80,7 @@ export const Profile = () => {
                                 className="form-control"
                                 placeholder="Rol"
                                 name="role"
-                                defaultValue={role.replace('ROLE_', '')}
+                                defaultValue={changeRolename(role)}
                                 disabled
                             />
                         </Row>

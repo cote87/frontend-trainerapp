@@ -3,6 +3,7 @@ import { UserContext } from "../../context/User/UserContext";
 import { TrainerContext } from "../../context/Trainer/TrainerContext";
 import { AuthContext } from "../../auth/context/AuthContext";
 import { PasswordInputForm } from "../PasswordInput";
+import { changeRolename } from "../../utils/changeRolename";
 
 export const UserForm = () => {
 
@@ -230,7 +231,7 @@ export const UserForm = () => {
                             onChange={onSelectChange}>
                             <option key="0" value={'0'} disabled>Seleccione una opción.</option>
                             {roles?.map(r =>
-                                <option key={r.id} value={r.id}>{r.name.replace('ROLE_', '')}</option>
+                                <option key={r.id} value={r.id}> {changeRolename(r.name)}</option>
                             )}
                         </select>
                         :

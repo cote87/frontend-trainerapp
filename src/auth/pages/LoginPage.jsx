@@ -126,22 +126,6 @@ export const LoginPage = () => {
                             </Col>
                         </form>
                     </Container>
-                    <br />
-                    <a
-                        href="#"
-                        ref={target}
-                        onClick={handleClick}
-                        style={{ cursor: 'pointer', color: '#007bff', textDecoration: 'underline' }}
-                    >
-                        ¿Olvidó su contraseña?
-                    </a>
-                    <Overlay target={target.current} show={show} placement="left">
-                        {(props) => (
-                            <Popover id="popover-click" {...props}>
-                                <Popover.Body>Contáctese con el administrador de su provincia.</Popover.Body>
-                            </Popover>
-                        )}
-                    </Overlay>
                     <br /><br />
                     <img
                         src="/img/sello-ministerio-seguridad.png"

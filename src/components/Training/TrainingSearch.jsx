@@ -95,20 +95,6 @@ export const TrainingSearch = () => {
 
                         <Row className="mb-3">
                             <Col>
-                                <label htmlFor="organizer" className="form-label">Organizado por</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="organizer"
-                                    placeholder="Buscar por formador"
-                                    value={localOrganizer}
-                                    onChange={(e) => setLocalOrganizer(e.target.value)}
-                                />
-                            </Col>
-                        </Row>
-
-                        <Row className="mb-3">
-                            <Col>
                                 <label className="form-label">Rango de fechas</label>
                                 <div className="d-flex gap-2">
                                     <input
