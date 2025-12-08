@@ -145,7 +145,7 @@ export const TrainingTable = () => {
                                         Ver más
                                     </button>
                                 </p>
-                                {writeable &&
+                                {writeable && login.provinceId == cap.province?.id && 
                                     <>
                                         <p>
                                             <button className="btn btn-edit" onClick={() => onClickEditTraining(cap.id)}>
@@ -169,3 +169,4 @@ export const TrainingTable = () => {
 
     );
 };
+

@@ -7,13 +7,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { TrainerContext } from '../../context/Trainer/TrainerContext';
 import { HYBRID, ONLINE, ONSITE } from '../../hooks/useTrainings';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../auth/context/AuthContext';
 
 export const TrainingForm = () => {
   const { thematicList: thematics, handlerLoadingThematicsList } = useContext(ThematicContext);
   const { currentTraining, handlerLoadingTraining, handlerSaveTraining, handlerClearCurrentTraining } = useContext(TrainingContext);
   const { provinces, handlerLoadingProvinces } = useContext(TrainerContext);
 
-  const { id = 0} = useParams();
+  const { id = 0 } = useParams();
 
   const [training, setTraining] = useState({
     title: '',
@@ -25,6 +26,11 @@ export const TrainingForm = () => {
     description: ''
   });
 
+  const {
+    login
+  } = useContext(AuthContext);
+
+  const isSAdmin = login.user.authorities.includes('ROLE_SADMIN');
 
   const navigate = useNavigate();
   const [content, setContent] = useState('');
@@ -59,6 +65,16 @@ export const TrainingForm = () => {
     }
   }, [currentTraining]);
 
+  useEffect(() => {
+    if (provinces.length > 0 && login?.provinceId) {
+
+      const userProvince = provinces.find(p => p.id == login.provinceId);
+
+      if (userProvince) {
+        setProvinceId(userProvince.id); // solo guardamos el id
+      }
+    }
+  }, [provinces, login]);
 
   const onInputChange = ({ target }) => {
     const { name, value } = target;
@@ -132,6 +148,7 @@ export const TrainingForm = () => {
             value={provinceId}
             onChange={e => setProvinceId(e.target.value)}
             isInvalid={!!errors.province}
+            disabled={!isSAdmin}  // ⬅ SI NO ES SADMIN, BLOQUEADO
           >
             <option value="">Seleccione una opción</option>
             {provinces && provinces.map(({ id, name }) => (
