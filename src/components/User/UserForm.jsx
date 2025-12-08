@@ -284,7 +284,7 @@ export const UserForm = () => {
                                 value={password}
                                 onChange={onInputChange}
                             />
-                            {errors.user?.password ? <span className="text-danger">{errors.user.password}</span> : <span className="text-warning">El campo La contraseña debe tener al menos 8 caracteres, una mayúscula y un número</span>}
+                            {errors.user?.password ? <span className="text-danger">{errors.user.password}</span> : <span className="text-warning">El campo contraseña debe tener al menos 8 caracteres, una mayúscula y un número</span>}
                         </div>
                     </div>
 
