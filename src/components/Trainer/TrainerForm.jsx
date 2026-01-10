@@ -29,7 +29,18 @@ export const TrainerForm = () => {
         handlerLoadingThematicsList,
     } = useContext(ThematicContext);
 
-    const [trainerForm, setTrainerForm] = useState(currentTrainerForm);
+    const [trainerForm, setTrainerForm] = useState(currentTrainerForm || initialTrainerForm || {
+        name: "",
+        lastname: "",
+        email: "",
+        areaCode: "",
+        phone: "",
+        documentType: {},
+        documentNumber: "",
+        province: {},
+        cv: "",
+        thematics: [],
+    });
     const { name, lastname, email, areaCode, phone, documentType, documentNumber, province, cv, thematics: selectedThematics } = trainerForm;
 
     useEffect(() => {
@@ -48,11 +59,11 @@ export const TrainerForm = () => {
     }, []);
 
     useEffect(() => {
-        if (provinces.length > 0 && login?.provinceId) {
+        if (provinces?.length > 0 && login?.provinceId) {
             setTrainerForm(prev => ({
                 ...prev,
-                province: provinces.find(p => p.id == login.provinceId),
-                documentType: documentTypes.find(d => d.name == "DNI")
+                province: provinces.find(p => p.id == login.provinceId) || {},
+                documentType: documentTypes.find(d => d.name == "DNI") || {}
             }));
         }
     }, [provinces, login]);
@@ -60,7 +71,7 @@ export const TrainerForm = () => {
     const onDeleteThematic = (id) => {
         setTrainerForm({
             ...trainerForm,
-            thematics: selectedThematics.filter(t => t.id != id),
+            thematics: selectedThematics?.filter(t => t.id != id),
         });
     }
     const onCloseForm = () => {
@@ -89,7 +100,7 @@ export const TrainerForm = () => {
                     break;
                 case 'thematics':
                     let exist = false;
-                    exist = selectedThematics.some(t => t.id == value)
+                    exist = selectedThematics?.some(t => t.id == value)
                     if (!exist) {
                         const selectedThematic = thematics.find(t => t.id == value);
                         object = [
@@ -149,7 +160,7 @@ export const TrainerForm = () => {
                             className="form-select"
                             aria-label="Default select example"
                             name="thematics"
-                            value={selectedThematics.at(-1)?.id || 0}
+                            value={selectedThematics?.at(-1)?.id || 0}
                             onChange={onSelectChange}>
                             <option key="0" value={'0'} disabled>Seleccione una opción.</option>
                             {thematics && thematics.map(({ id, name }) => (
@@ -162,7 +173,7 @@ export const TrainerForm = () => {
                     </div>
                     <div className="row-9">
                         {
-                            selectedThematics.map(({ id, name }) => (
+                            selectedThematics?.map(({ id, name }) => (
                                 <button
                                     type="button"
                                     className="btn btn-secondary btn-sm mx-1 my-2"
@@ -184,7 +195,7 @@ export const TrainerForm = () => {
                         className="form-control"
                         placeholder="Nombre"
                         name="name"
-                        value={name}
+                        value={name || ''}
                         onChange={onInputChange}
                     />
                     <span className="text-danger">{errors?.name}</span>
@@ -199,7 +210,7 @@ export const TrainerForm = () => {
                         className="form-control"
                         placeholder="Apellido"
                         name="lastname"
-                        value={lastname}
+                        value={lastname || ''}
                         onChange={onInputChange}
                     />
                     <span className="text-danger">{errors?.lastname}</span>
@@ -215,7 +226,7 @@ export const TrainerForm = () => {
                             className="form-select"
                             aria-label="Default select example"
                             name="province"
-                            value={province.id}
+                            value={province?.id || 0}
                             onChange={onSelectChange}>
                             <option key="0" value={'0'} disabled>Seleccione una opción.</option>
                             {provinces.map(({ id, name }) => (
@@ -248,7 +259,7 @@ export const TrainerForm = () => {
                     <select
                         className="form-select"
                         aria-label="Default select example"
-                        value={documentType.id}
+                        value={documentType?.id || 0}
                         name="documentType"
                         onChange={onSelectChange}>
                         <option key={0} value={0} disabled >Seleccione una opción.</option>
@@ -270,7 +281,7 @@ export const TrainerForm = () => {
                         className="form-control"
                         placeholder="Número de Documento"
                         name="documentNumber"
-                        value={documentNumber}
+                        value={documentNumber || 0}
                         onChange={handleChange}
                     />
                     <span className="text-danger">{errors?.documentNumber}</span>
@@ -285,7 +296,7 @@ export const TrainerForm = () => {
                         className="form-control"
                         placeholder="Email"
                         name="email"
-                        value={email}
+                        value={email || ''}
                         onChange={onInputChange}
                     />
                     <span className="text-danger">{errors?.email}</span>
@@ -302,7 +313,7 @@ export const TrainerForm = () => {
                                 className="form-control"
                                 placeholder="Cód. Área"
                                 name="areaCode"
-                                value={areaCode}
+                                value={areaCode || ''}
                                 onChange={onInputChange}
                             />
                             <span className="text-danger">{errors?.areaCode}</span>
@@ -313,7 +324,7 @@ export const TrainerForm = () => {
                                 className="form-control"
                                 placeholder="Teléfono"
                                 name="phone"
-                                value={phone}
+                                value={phone || ''}
                                 onChange={onInputChange}
                             />
                             <span className="text-danger">{errors?.phone}</span>
@@ -330,7 +341,7 @@ export const TrainerForm = () => {
                         className="form-control"
                         placeholder="URL Currículum Vitae"
                         name="cv"
-                        value={cv}
+                        value={cv || ''}
                         onChange={onInputChange}
                     />
                     <span className="text-danger">{errors?.cv}</span>
