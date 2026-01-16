@@ -9,13 +9,6 @@ import { AuthContext } from "../../auth/context/AuthContext";
 
 export const TrainingTable = () => {
 
-    const formateador = new Intl.DateTimeFormat('es-AR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        timeZone: 'UTC'
-    });
-
     const {
         login
     } = useContext(AuthContext);
@@ -129,7 +122,9 @@ export const TrainingTable = () => {
                                         <p>
                                             <small>
                                                 <b>Fecha de inicio:</b>{" "}
-                                                {formateador.format(new Date(cap.startDate))}
+                                                {cap.startDate
+                                                    ? cap.startDate.split('-').reverse().join('/')
+                                                    : ''}
                                             </small>
                                         </p>
                                     </Col>
