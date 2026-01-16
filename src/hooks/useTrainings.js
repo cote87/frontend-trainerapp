@@ -20,8 +20,8 @@ const initialTraining = {
 const initialSearchFilters = {
     title: "",
     organizer: "",
-    startDateFrom: new Date().toISOString().split("T")[0], // formato yyyy-MM-dd,
-    startDateTo: null,
+    startDateFrom: new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
+    startDateTo: new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
     mode: "",
     provinceId: null,
     thematicId: null,
@@ -55,6 +55,7 @@ export const useTrainings = () => {
     }
 
     const loadTrainings = async (newPage) => {
+        console.log(startDateFrom+" "+startDateTo)
         try {
             const response = await getTrainings({
                 page: newPage,

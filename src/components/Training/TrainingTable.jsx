@@ -123,7 +123,7 @@ export const TrainingTable = () => {
                                             <small>
                                                 <b>Fecha de inicio:</b>{" "}
                                                 {cap.startDate
-                                                    ? new Date(cap.startDate).toLocaleDateString("es-AR", {
+                                                    ? new Date(cap.startDate.replace(/-/g, '/')).toLocaleDateString("es-AR", {
                                                         day: "2-digit",
                                                         month: "2-digit",
                                                         year: "numeric",
@@ -145,7 +145,7 @@ export const TrainingTable = () => {
                                         Ver más
                                     </button>
                                 </p>
-                                {writeable && login.provinceId == cap.province?.id && 
+                                {writeable && login.provinceId == cap.province?.id &&
                                     <>
                                         <p>
                                             <button className="btn btn-edit" onClick={() => onClickEditTraining(cap.id)}>
