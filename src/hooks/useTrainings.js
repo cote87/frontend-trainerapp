@@ -15,6 +15,16 @@ const initialTraining = {
         id: 0,
         name: '',
     },
+    user: {
+        id: 0,
+        username: '',
+        nickname: '',
+        province: {
+            id: 0,
+            name: '',
+        },
+        role:''
+    }
 }
 
 const initialSearchFilters = {
@@ -50,12 +60,10 @@ export const useTrainings = () => {
     const clearFilters = () => {
         if (JSON.stringify(searchFilters) !== JSON.stringify(initialSearchFilters)) {
             setSearchFilters(initialSearchFilters);
-            console.log("entro a limpiar filtros");
         }
     }
 
     const loadTrainings = async (newPage) => {
-        console.log(startDateFrom+" "+startDateTo)
         try {
             const response = await getTrainings({
                 page: newPage,

@@ -25,6 +25,7 @@ export const useAuth = () => {
             const claims = JSON.parse(window.atob(token.split(".")[1]));
             const authoritiesRaw = JSON.parse(claims.authorities);
             const authorities = [];
+
             for (let i = 0; i < authoritiesRaw.length; i++) {
                 authorities.push(authoritiesRaw[i].authority);
             }
@@ -37,6 +38,7 @@ export const useAuth = () => {
                 type: LOGIN,
                 payload: {
                     user,
+                    id: claims.id,
                     isAdmin: claims.isAdmin,
                     provinceId: claims.provinceId,
                     nickname: claims.nickname,
@@ -47,6 +49,7 @@ export const useAuth = () => {
                 isAdmin: claims.isAdmin,
                 provinceId: claims.provinceId,
                 nickname: claims.nickname,
+                id: claims.id,
                 user
             }))
             sessionStorage.setItem('token', "Bearer " + token);

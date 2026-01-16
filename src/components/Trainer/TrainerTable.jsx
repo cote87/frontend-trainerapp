@@ -43,6 +43,9 @@ export const TrainerTable = () => {
 
     const writeable = login.user.authorities.includes("KEY_WRITE_TRAINERS");
     const deleteable = login.user.authorities.includes("KEY_DELETE_TRAINERS");
+    const isAdmin = login.isAdmin;
+    const isSAdmin = login.user.authorities.includes("ROLE_SADMIN");
+    const userId = login.id;
 
 
     const [loading, setLoading] = useState(true);
@@ -337,14 +340,14 @@ export const TrainerTable = () => {
                                                             onClick={() => onShowForm(t.id)}
                                                         >Ver</button>
                                                         {
-                                                            login.user.authorities.includes("ROLE_SADMIN")
+                                                            isSAdmin
                                                                 ?
                                                                 <button
                                                                     className="btn btn-edit m-1"
                                                                     onClick={() => onEditForm(t.id)}
                                                                 >Editar</button>
                                                                 :
-                                                                writeable && (login.provinceId == t.province.id) &&
+                                                                writeable && (login.provinceId == t.province.id) && (isAdmin || t.userId == userId) &&
                                                                 <button
                                                                     className="btn btn-edit m-1"
                                                                     onClick={() => onEditForm(t.id)}
@@ -352,21 +355,21 @@ export const TrainerTable = () => {
                                                         }
 
                                                         {
-                                                            (login.user.authorities.includes("ROLE_SADMIN") && t.enabled)
+                                                            (isSAdmin && t.enabled)
                                                                 ?
                                                                 <button
                                                                     className="btn btn-delete"
                                                                     onClick={() => onDown(t.id)}
                                                                 >Dar Baja</button>
                                                                 :
-                                                                deleteable && t.enabled && (login.provinceId == t.province.id) &&
+                                                                deleteable && t.enabled && (login.provinceId == t.province.id) && (isAdmin || t.userId == userId) &&
                                                                 <button
                                                                     className="btn btn-delete"
                                                                     onClick={() => onDown(t.id)}
                                                                 >Dar Baja</button>
                                                         }
                                                         {
-                                                            (login.user.authorities.includes("ROLE_SADMIN") && !t.enabled) &&
+                                                            (isSAdmin && !t.enabled) &&
                                                             <button
                                                                 className="btn btn-delete"
                                                                 onClick={() => onDelete(t.id)}

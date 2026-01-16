@@ -40,6 +40,7 @@ export const TrainerForm = () => {
         province: {},
         cv: "",
         thematics: [],
+        userId:login.id,
     });
     const { name, lastname, email, areaCode, phone, documentType, documentNumber, province, cv, thematics: selectedThematics } = trainerForm;
 
@@ -63,7 +64,8 @@ export const TrainerForm = () => {
             setTrainerForm(prev => ({
                 ...prev,
                 province: provinces.find(p => p.id == login.provinceId) || {},
-                documentType: documentTypes.find(d => d.name == "DNI") || {}
+                documentType: documentTypes.find(d => d.name == "DNI") || {},
+                userId:login.id,
             }));
         }
     }, [provinces, login]);

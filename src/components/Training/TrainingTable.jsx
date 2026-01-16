@@ -14,6 +14,8 @@ export const TrainingTable = () => {
     } = useContext(AuthContext);
 
     const writeable = login.user.authorities.includes("KEY_WRITE_TRAININGS");
+    const isAdmin = login.isAdmin;
+    const isSAdmin = login.user.authorities.includes("ROLE_SADMIN");
 
     const navigate = useNavigate();
 
@@ -141,7 +143,7 @@ export const TrainingTable = () => {
                                         Ver más
                                     </button>
                                 </p>
-                                {writeable && login.provinceId == cap.province?.id &&
+                                {writeable && (login.provinceId == cap.province?.id || isSAdmin) && ( isAdmin || cap.userId == login.id) &&
                                     <>
                                         <p>
                                             <button className="btn btn-edit" onClick={() => onClickEditTraining(cap.id)}>

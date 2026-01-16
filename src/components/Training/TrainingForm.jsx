@@ -17,6 +17,7 @@ export const TrainingForm = () => {
   const { id = 0 } = useParams();
 
   const [training, setTraining] = useState({
+    userId: 0,
     title: '',
     startDate: '',
     mode: '',
@@ -54,10 +55,12 @@ export const TrainingForm = () => {
   useEffect(() => {
     if (currentTraining) {
       setTraining({
+        userId:login.id,
         title: currentTraining.title || '',
         startDate: currentTraining.startDate || '',
         mode: currentTraining.mode || '',
         organizer: currentTraining.organizer || '',
+        
       });
       setContent(currentTraining.description || '');
       setThematicId(currentTraining.thematic?.id || '');

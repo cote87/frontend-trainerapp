@@ -12,6 +12,7 @@ export const LoginReducer = (state = {}, action) => {
                     provinceId: action.payload.provinceId,
                     nickname: action.payload.nickname,
                     user: action.payload.user,
+                    id: action.payload.id,
                 }
             );
         case LOGOUT:
@@ -21,7 +22,8 @@ export const LoginReducer = (state = {}, action) => {
                     isAdmin: false,
                     nickname: undefined,
                     provinceId: undefined,
-                    user: undefined
+                    user: undefined,
+                    id: undefined
                 }
             );
 
