@@ -20,8 +20,8 @@ const initialTraining = {
 const initialSearchFilters = {
     title: "",
     organizer: "",
-    startDateFrom: new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
-    startDateTo: new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
+    startDateFrom: new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
+    startDateTo:  new Date(new Date().setFullYear(new Date().getFullYear() + 2)).toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
     mode: "",
     provinceId: null,
     thematicId: null,
