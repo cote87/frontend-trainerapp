@@ -40,9 +40,10 @@ export const TrainerForm = () => {
         province: {},
         cv: "",
         thematics: [],
+        institution:"",
         userId:login.id,
     });
-    const { name, lastname, email, areaCode, phone, documentType, documentNumber, province, cv, thematics: selectedThematics } = trainerForm;
+    const { name, lastname, email, areaCode, phone, documentType, documentNumber, province, cv, thematics: selectedThematics, institution } = trainerForm;
 
     useEffect(() => {
         const fetchData = () => {
@@ -216,6 +217,21 @@ export const TrainerForm = () => {
                         onChange={onInputChange}
                     />
                     <span className="text-danger">{errors?.lastname}</span>
+                </div>
+            </div>
+
+            <div className="form-group row mb-3">
+                <label className="col-form-label col-3 fw-bold">Institución/Fuerza:</label>
+                <div className="col-9">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Institución o Fuerza"
+                        name="institution"
+                        value={institution || ''}
+                        onChange={onInputChange}
+                    />
+                    <span className="text-danger">{errors?.institution}</span>
                 </div>
             </div>
 

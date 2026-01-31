@@ -30,6 +30,7 @@ const initialTrainerForm = {
              }*/
     ],
     cv: '',
+    institution:'',
     enabled: true
 
 };
@@ -45,6 +46,7 @@ const initialTrainerErrors = {
     phone: '',
     thematics: '',
     cv: '',
+    institution:'',
 }
 
 export const useTrainers = () => {

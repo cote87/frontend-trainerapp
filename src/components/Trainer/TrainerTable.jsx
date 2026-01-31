@@ -317,6 +317,7 @@ export const TrainerTable = () => {
                                         <th>Temáticas</th>
                                         <th>Documento</th>
                                         <th>Provincia</th>
+                                        <th>Institución/Fuerza</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -334,6 +335,7 @@ export const TrainerTable = () => {
                                                     </td>
                                                     <td>{t.documentType.name}: {t.documentNumber}</td>
                                                     <td>{t.province.name}</td>
+                                                    <td>{t.institution || ''}</td>
                                                     <td style={{ minWidth: "200px", whiteSpace: "nowrap" }}>
                                                         <button
                                                             className="btn btn-view m-1"
