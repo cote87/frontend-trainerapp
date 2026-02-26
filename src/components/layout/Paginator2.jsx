@@ -24,11 +24,18 @@ export const Paginator2 = ({ page, totalPages, searchFunction }) => {
         <div className="d-flex justify-content-center my-3">
             <nav aria-label="Page navigation example">
                 <ul className="pagination">
+                    {/* Botón "Primera página"*/}
+                    <li className="page-item">
+                        <button className="page-link-outline" onClick={() => onClickPage(0)}>
+                            &laquo;
+                        </button>
+                    </li>
+
                     {/* Botón "Anterior" */}
                     {page > 0 && (
                         <li className="page-item">
                             <button className="page-link-outline" onClick={() => onClickPage(page - 1)}>
-                                &laquo;
+                                &lt;
                             </button>
                         </li>
                     )}
@@ -40,10 +47,16 @@ export const Paginator2 = ({ page, totalPages, searchFunction }) => {
                     {page < totalPages - 1 && (
                         <li className="page-item">
                             <button className="page-link-outline" onClick={() => onClickPage(page + 1)}>
-                                &raquo;
+                                &gt;
                             </button>
                         </li>
                     )}
+                    <li className="page-item">
+                        <button className="page-link-outline" onClick={() => onClickPage(totalPages-1)}>
+                            &raquo;
+                        </button>
+                    </li>
+                    {/* Botón "Ultima página"*/}
                 </ul>
             </nav>
         </div>

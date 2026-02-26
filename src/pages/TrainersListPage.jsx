@@ -29,7 +29,6 @@ export const TrainerListPage = () => {
             {writeable &&
                 <div className="text-end">
 
-
                     <button
                         className="btn btn-danger mx-2"
                         onClick={() => { handlerCreateTrainerPDF() }}

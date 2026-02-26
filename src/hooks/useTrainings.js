@@ -64,6 +64,7 @@ export const useTrainings = () => {
     }
 
     const loadTrainings = async (newPage) => {
+        setLoading(true);
         try {
             const response = await getTrainings({
                 page: newPage,

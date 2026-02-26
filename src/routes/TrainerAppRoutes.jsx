@@ -16,6 +16,8 @@ import { TrainingForm } from "../components/Training/TrainingForm";
 import { TrainingProvider } from "../context/Training/TrainingProvider";
 import { TrainingView } from "../components/Training/TrainingView";
 import { ProfileForm } from "../auth/pages/ProfileForm";
+import { ResearchProvider } from "../context/Research/ResearchProvider";
+import { ResearchsListPage } from "../pages/ResearchsListPage";
 
 export const TrainerAppRoutes = () => {
 
@@ -37,20 +39,23 @@ export const TrainerAppRoutes = () => {
             <UserProvider>
                 <TrainingProvider>
                     <ThematicProvider>
-                        <Routes>
-                            <Route path="/*" element={<Navigate to="/homepage" />} />
-                            <Route path="capacitaciones/form" element={<TrainingForm />} />
-                            <Route path="capacitaciones/form/:id" element={<TrainingForm />} />
-                            <Route path="capacitaciones/view" element={<TrainingView />} />
-                            <Route path="capacitaciones" element={<TrainingsListPage />} />
-                            <Route path="homepage" element={<HomePage />} />
-                            <Route path="perfil" element={<Profile />} />
-                            <Route path="editarPerfil" element={<ProfileForm />} />
-                            <Route path="metrics/map" element={<MetricMap></MetricMap>} />
-                            {login.user.authorities.includes("KEY_READ_TRAINERS") && <Route path="formadores" element={<TrainerListPage />} />}
-                            {login.user.authorities.includes("KEY_READ_THEMATICS") && <Route path="tematicas" element={<ThematicListPage />} />}
-                            {login.user.authorities.includes("KEY_READ_USERS") && <Route path="usuarios" element={<UserListPage />} />}
-                        </Routes>
+                        <ResearchProvider>
+                            <Routes>
+                                <Route path="/*" element={<Navigate to="/homepage" />} />
+                                <Route path="capacitaciones/form" element={<TrainingForm />} />
+                                <Route path="capacitaciones/form/:id" element={<TrainingForm />} />
+                                <Route path="capacitaciones/view" element={<TrainingView />} />
+                                <Route path="capacitaciones" element={<TrainingsListPage />} />
+                                <Route path="homepage" element={<HomePage />} />
+                                <Route path="perfil" element={<Profile />} />
+                                <Route path="editarPerfil" element={<ProfileForm />} />
+                                <Route path="metrics/map" element={<MetricMap></MetricMap>} />
+                                {login.user.authorities.includes("KEY_READ_TRAINERS") && <Route path="formadores" element={<TrainerListPage />} />}
+                                {login.user.authorities.includes("KEY_READ_RESEARCHS") && <Route path="investigaciones" element={<ResearchsListPage />} />}
+                                {login.user.authorities.includes("KEY_READ_THEMATICS") && <Route path="tematicas" element={<ThematicListPage />} />}
+                                {login.user.authorities.includes("KEY_READ_USERS") && <Route path="usuarios" element={<UserListPage />} />}
+                            </Routes>
+                        </ResearchProvider>
                     </ThematicProvider>
                 </TrainingProvider>
             </UserProvider>

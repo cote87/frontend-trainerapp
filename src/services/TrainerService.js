@@ -2,8 +2,6 @@ import api from "./api";
 
 const API_URL = '/formadores';
 
-const test = false;
-
 //Busqueda de tematicas para el MAPA
 export const getTrainersList = async (thematics) => {
     test && console.log("getTrainerList");
@@ -15,7 +13,6 @@ export const getTrainersList = async (thematics) => {
 }
 
 export const getTrainers = async ({ page, size, name, lastname, province, thematic, orderBy, asc, enabled }) => {
-    test && console.log("getTrainers");
     try {
         const url = (
             "?page=" + page
@@ -36,8 +33,7 @@ export const getTrainers = async ({ page, size, name, lastname, province, themat
     }
 }
 
-export const getPDF = async ({ name, lastname, province, thematic, enabled }) => {
-    test && console.log("getPDF");
+export const findAllTrainers = async ({ name, lastname, province, thematic, enabled }) => {
     try {
         const url = (
             "?name=" + name
@@ -54,8 +50,15 @@ export const getPDF = async ({ name, lastname, province, thematic, enabled }) =>
     }
 }
 
+export const findTrainer = async (id) => {
+    try {
+        return await api.get(API_URL+'/'+id);
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const saveTrainer = async (trainer) => {
-    test && console.log("saveTrainer");
     try {
         const { id, ...data } = trainer;
         const response = await api.post(
@@ -68,7 +71,6 @@ export const saveTrainer = async (trainer) => {
 }
 
 export const updateTrainer = async (data) => {
-    test && console.log("updateTrainer");
     try {
         const id = data.id;
         data = { ...data, enabled: true }
@@ -85,7 +87,6 @@ export const updateTrainer = async (data) => {
 
 
 export const unsuscribeTrainer = async (data) => {
-    test && console.log("unsuscribeTrainer");
     try {
         const id = data.id;
         data = {
@@ -106,7 +107,6 @@ export const unsuscribeTrainer = async (data) => {
 }
 
 export const deleteTrainer = async (id) => {
-    test && console.log("deleteTrainer");
     try {
         const response = await api.delete(
             API_URL + "/" + id

@@ -34,6 +34,14 @@ export const HomePage = () => {
             <h4 className="m-0 py-1">CAPACITACIONES</h4>
           </button>
         </div>
+        <div className="col-6 col-md-3">
+          <button
+            className="btn btn-azul-oscuro rounded-pill w-100 d-flex align-items-center justify-content-center text-white border border-white"
+            onClick={() => navigate('/investigaciones')}
+          >
+            <h4 className="m-0 py-1">INVESTIGACIONES</h4>
+          </button>
+        </div>
       </div>
       <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>

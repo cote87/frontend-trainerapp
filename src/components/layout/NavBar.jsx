@@ -14,6 +14,7 @@ export const NavBar = () => {
     const usersReader = login.user.authorities.includes("KEY_READ_USERS");
     const trainersReader = login.user.authorities.includes("KEY_READ_TRAINERS");
     const metricsReader = login.user.authorities.includes("KEY_READ_METRICS");
+    const researchsReader = login.user.authorities.includes("KEY_READ_RESEARCHS");
 
     const onClickLogout = () => {
         handlerLogout();
@@ -42,6 +43,11 @@ export const NavBar = () => {
                         {trainersReader &&
                             <li className="nav-item">
                                 <NavLink className="nav-link" to='/capacitaciones'>Capacitaciones</NavLink>
+                            </li>
+                        }
+                        {researchsReader &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to='/investigaciones'>Investigaciones</NavLink>
                             </li>
                         }
                         {usersReader &&

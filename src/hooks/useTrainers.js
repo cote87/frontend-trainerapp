@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getProvinces } from "../services/ProvinceService";
 import { getDocumentTypes } from "../services/DocumentTypeService";
-import { deleteTrainer, getPDF, getTrainers, saveTrainer, unsuscribeTrainer, updateTrainer } from "../services/TrainerService"
+import { deleteTrainer, findAllTrainers, getTrainers, saveTrainer, unsuscribeTrainer, updateTrainer } from "../services/TrainerService"
 import Swal from "sweetalert2";
 import { useSearchParams } from "react-router-dom";
 import { generatePDF } from "../utils/generatePDF";
@@ -145,7 +145,7 @@ export const useTrainers = () => {
 
     const handlerCreateTrainerPDF = async () => {
         try {
-            const trainersListDB = await getPDF({
+            const trainersListDB = await findAllTrainers({
                 name: name,
                 lastname: lastname,
                 province: province,

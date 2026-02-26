@@ -17,7 +17,6 @@ export const TrainingSearch = () => {
     const { thematicList, handlerLoadingThematicsList } = useContext(ThematicContext);
 
     const [localTitle, setLocalTitle] = useState(initialSearchFilters.title || "");
-    const [localOrganizer, setLocalOrganizer] = useState(initialSearchFilters.organizer || "");
     const [localStartDateFrom, setLocalStartDateFrom] = useState(initialSearchFilters.startDateFrom || "");
     const [localStartDateTo, setLocalStartDateTo] = useState(initialSearchFilters.startDateTo || "");
     const [localMode, setLocalMode] = useState(initialSearchFilters.mode || "");
