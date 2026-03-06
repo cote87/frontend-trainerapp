@@ -44,7 +44,7 @@ export const LoginPage = () => {
             }}
 
         >
-            <Row  className="justify-content-end">
+            <Row className="justify-content-end">
                 <Col
                     md={4}
                     className="d-flex flex-column align-items-center"
@@ -127,11 +127,22 @@ export const LoginPage = () => {
                         </form>
                     </Container>
                     <br /><br />
-                    <img
-                        src="/img/sello-ministerio-seguridad.png"
-                        alt="Sello"
-                        className="img-fluid w-50"
-                    />
+                    <Col>
+                        <Row className="justify-content-center align-items-center g-4">
+                            <img
+                                src="/img/MINSEG-SELLO.png"
+                                alt="Sello"
+                                className="img-fluid w-25 h-auto"
+                                style={{ objectFit: 'contain' }}
+                            />
+                            <img
+                                src="/img/CAFFoPP.png"
+                                alt="Sello"
+                                className="img-fluid w-25 h-auto"
+                                style={{ objectFit: 'contain' }}
+                            />
+                        </Row>
+                    </Col>
                     <br /><br />
                 </Col>
             </Row>
