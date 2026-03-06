@@ -315,7 +315,6 @@ export const TrainerTable = () => {
                                     <tr>
                                         <th>Formador</th>
                                         <th>Temáticas</th>
-                                        <th>Documento</th>
                                         <th>Provincia</th>
                                         <th>Institución/Fuerza</th>
                                         <th></th>
@@ -333,7 +332,6 @@ export const TrainerTable = () => {
                                                         )
                                                         }
                                                     </td>
-                                                    <td>{t.documentType.name}: {t.documentNumber}</td>
                                                     <td>{t.province.name}</td>
                                                     <td>{t.institution || ''}</td>
                                                     <td style={{ minWidth: "200px", whiteSpace: "nowrap" }}>
@@ -355,7 +353,6 @@ export const TrainerTable = () => {
                                                                     onClick={() => onEditForm(t.id)}
                                                                 >Editar</button>
                                                         }
-
                                                         {
                                                             (isSAdmin && t.enabled)
                                                                 ?

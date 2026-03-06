@@ -235,8 +235,8 @@ export const TrainerForm = () => {
                 </div>
             </div>
 
-            {isSAdmin
-                ?
+            {//isSAdmin
+                //?
                 <div className="form-group row mb-3">
                     <label className="col-form-label col-3 fw-bold">Provincia:</label>
                     <div className="col-9">
@@ -256,7 +256,7 @@ export const TrainerForm = () => {
                         <span className="text-danger">{errors?.province?.name}</span>
                     </div>
                 </div>
-                :
+                /*:
                 <div className="form-group row mb-3">
                     <label className="col-form-label col-3 fw-bold">Provincia:</label>
                     <div className="col-9">
@@ -267,7 +267,7 @@ export const TrainerForm = () => {
                             disabled
                         />
                     </div>
-                </div>
+                </div>*/
             }
 
 
