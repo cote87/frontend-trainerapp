@@ -151,7 +151,7 @@ export const TrainingForm = () => {
             value={provinceId}
             onChange={e => setProvinceId(e.target.value)}
             isInvalid={!!errors.province}
-            disabled={!isSAdmin}  // ⬅ SI NO ES SADMIN, BLOQUEADO
+            //disabled={!isSAdmin}  // ⬅ SI NO ES SADMIN, BLOQUEADO
           >
             <option value="">Seleccione una opción</option>
             {provinces && provinces.map(({ id, name }) => (
