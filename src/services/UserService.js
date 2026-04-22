@@ -53,7 +53,7 @@ export const saveUser = async (user) => {
 export const editForm = async ({ username, nickname, currentPassword, newPassword }) => {
     test && console.log("changePassword");
     try {
-        return await api.put("http://localhost:8080/api/perfil", {
+        return await api.put("/perfil", {
             username: username,
             nickname: nickname,
             currentPassword: currentPassword,
