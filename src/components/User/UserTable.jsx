@@ -89,6 +89,7 @@ export const UserTable = () => {
                                     <th>Rol</th>
                                     <th>Provincia</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,6 +106,9 @@ export const UserTable = () => {
                                         </td>
                                         <td>
                                             {user.province?.name}
+                                        </td>
+                                        <td>
+                                            {user.fuerzaFederal ? "Fuerza Federal" : ""}
                                         </td>
                                         <td className="text-end">
                                             <button className="btn btn-edit mx-2" onClick={() => onEdit(user)} >editar</button>

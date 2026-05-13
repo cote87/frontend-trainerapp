@@ -15,7 +15,6 @@ export const UserForm = () => {
 
     const {
         roles,
-        initialUserForm,
         currentUser,
         errors,
         handlerVisibleForm,
@@ -47,8 +46,9 @@ export const UserForm = () => {
             name: "ROLE_USER"
         },
         changePassword: false,
+        fuerzaFederal: false,
     });
-    const { id, username, password, nickname, province, role, repeatPassword } = userForm;
+    const { id, username, password, nickname, province, role, repeatPassword, fuerzaFederal } = userForm;
 
     //Funciones de dinámicas del Formulario//////////////////////////////////////////
 
@@ -72,10 +72,10 @@ export const UserForm = () => {
         } else {
             switch (name) {
                 case 'province':
-                    object = initialUserForm.province;
+                    object = { id: 0, name: '' };
                     break;
                 case 'role':
-                    object = initialUserForm.role;
+                    object = { id: 3, name: "ROLE_USER" };
                     break;
                 default:
                     break;
@@ -88,6 +88,16 @@ export const UserForm = () => {
         });
     };
 
+    const onFuerzaFederalChange = ({ target }) => {
+        const isChecked = target.checked;
+        const cabaProvince = provinces.find(p => p.name === 'C.A.B.A.') || { id: 0, name: '' };
+
+        setUserForm({
+            ...userForm,
+            fuerzaFederal: isChecked,
+            province: isChecked ? cabaProvince : { id: 0, name: '' }
+        });
+    };
 
     const onInputChange = ({ target }) => {
         const { name, value } = target;
@@ -151,6 +161,7 @@ export const UserForm = () => {
                 role: matchedRol,
                 password: currentUser.password ?? "",
                 repeatPassword: "",
+                fuerzaFederal: currentUser.fuerzaFederal ?? false,
             });
         }
     }, [currentUser]);
@@ -198,7 +209,8 @@ export const UserForm = () => {
                             aria-label="Default select example"
                             name="province"
                             value={province.id}
-                            onChange={onSelectChange}>
+                            onChange={onSelectChange}
+                            disabled={fuerzaFederal}>
                             <option key="0" value={'0'} disabled>Seleccione una opción.</option>
                             {provinces.map(({ id, name }) => (
                                 <option key={id} value={id}>
@@ -217,6 +229,30 @@ export const UserForm = () => {
                     {errors.user?.province && <span className="text-danger">{errors.user.province}</span>}
                 </div>
             </div>
+
+            {
+                isSAdmin || provinces?.find(p => p.id == login?.provinceId)?.name == "C.A.B.A." ?
+                    <div className="form-group row mb-3">
+                        <div className="col-3"></div>
+                        <div className="col-9">
+                            <div className="form-check">
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    name="fuerzaFederal"
+                                    id="fuerzaFederal"
+                                    checked={fuerzaFederal}
+                                    onChange={onFuerzaFederalChange}
+                                />
+                                <label className="form-check-label fw-bold" htmlFor="fuerzaFederal">
+                                    ¿Pertenece a Fuerza Federal?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    ""
+            }
 
             <div className="form-group row mb-3">
                 <label className="col-form-label col-3 fw-bold">Rol:</label>

@@ -26,7 +26,7 @@ export const UserSearch = () => {
 
     return <>
         <Card className="my-2 custom-card">
-            <CardHeader className="custom-card-header-search"><h4>Buscar temática</h4></CardHeader>
+            <CardHeader className="custom-card-header-search"><h4>Buscar usuario</h4></CardHeader>
             <form onSubmit={onSubmit}>
                 <CardBody>
                     <div className="form-group">

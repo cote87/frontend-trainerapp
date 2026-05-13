@@ -27,6 +27,7 @@ export const saveUser = async (user) => {
                 province: user.province,
                 role: user.role,
                 changePassword: user.changePassword,
+                fuerzaFederal: user.fuerzaFederal,
             }
            response = await api.put(URL + '/' + user.id, userRequest)
         }
@@ -38,6 +39,7 @@ export const saveUser = async (user) => {
                     nickname: user.nickname,
                     province: user.province,
                     role: user.role,
+                    fuerzaFederal: user.fuerzaFederal,
                 },
             };
             response = await api.post(URL, userRequest);

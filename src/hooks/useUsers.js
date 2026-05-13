@@ -15,7 +15,8 @@ const initialUserForm = {
     role:
     {
         id: 0,
-    }
+    },
+    fuerzaFederal: false,
 };
 
 const initialUserErrors = {
@@ -174,7 +175,8 @@ export const useUsers = () => {
             nickname: user.nickname,
             password: '',
             province: user.province,
-            role: user.role
+            role: user.role,
+            fuerzaFederal : user.fuerzaFederal,
         })
     }
 
