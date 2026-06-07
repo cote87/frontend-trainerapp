@@ -116,7 +116,7 @@ export const TrainingTable = () => {
                                         <small><b>Modo:</b> {renderMode(cap.mode)}</small><br />
                                     </Col>
                                     <Col>
-                                        <p><b>Formadores:</b> {cap.trainer}</p>
+                                        <p><b>Organizado por:</b> {cap.organizer}</p>
                                     </Col>
                                 </Row>
                                 <Row>
@@ -126,7 +126,7 @@ export const TrainingTable = () => {
                                                 <b>Fecha de inicio:</b>{" "}
                                                 {cap.startDate
                                                     ? cap.startDate.split('-').reverse().join('/')
-                                                    : ''}
+                                                    : 'a confirmar'}
                                             </small>
                                         </p>
                                     </Col>

@@ -165,7 +165,7 @@ export const TrainingForm = () => {
 
         {/* Fecha de inicio */}
         <Form.Group className="mb-3">
-          <Form.Label className='text-white'>Fecha de inicio</Form.Label>
+          <Form.Label className='text-white'>Fecha de inicio (deje en blanco si aún no tiene confirmada una fecha)</Form.Label>
           <Form.Control
             type="date"
             name="startDate"
