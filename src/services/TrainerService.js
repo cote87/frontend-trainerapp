@@ -4,7 +4,7 @@ const API_URL = '/formadores';
 
 //Busqueda de tematicas para el MAPA
 export const getTrainersList = async (thematics) => {
-    test && console.log("getTrainerList");
+    
     try {
         return (await api.get(API_URL + "/list?thematics=" + thematics)).data;
     } catch (error) {
