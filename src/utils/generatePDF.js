@@ -33,18 +33,40 @@ export const generatePDF = (trainers) => {
 };
 
 export const generateSingleTrainingPDF = async (training) => {
-    const doc = new jsPDF();
 
-    // Encabezado
-    doc.setFontSize(16);
+    const doc = new jsPDF({
+        unit: "mm",
+        format: "a4",
+    });
+
+    const marginX = 14;
+    const maxLineWidth = 180; 
+
     doc.setFont("helvetica", "bold");
-    doc.text(training.title || "Detalle de Capacitación", 14, 20);
+    doc.setFontSize(16);
+    doc.setTextColor(33, 37, 41);
 
-    doc.setFontSize(10);
+    const titleText = training.title || "Detalle de Capacitación";
+    // Divide el título si supera los 180mm de ancho
+    const titleLines = doc.splitTextToSize(titleText, maxLineWidth);
+    
+    let currentY = 20;
+    doc.text(titleLines, marginX, currentY);
+
+    // Ajustamos la posición Y según la cantidad de renglones que tomó el título
+    const titleHeight = titleLines.length * 7; 
+    currentY += titleHeight;
+
+    // Subtítulo
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(100);
+    doc.setFontSize(10);
+    doc.setTextColor(108, 117, 125);
+    doc.text("Ficha Técnica - RedFOCASE", marginX, currentY);
+    currentY += 8;
 
-    // Tabla de Datos Principales
+   
+    // 2. TABLA DE DATOS PRINCIPALES
+
     const tableData = [
         ["Temática", training.thematic?.name || "-"],
         ["Modalidad", training.mode || "-"],
@@ -54,7 +76,8 @@ export const generateSingleTrainingPDF = async (training) => {
     ];
 
     autoTable(doc, {
-        startY: 32,
+        startY: currentY,
+        margin: { left: marginX, right: marginX, top: 15, bottom: 20 },
         head: [["Campo", "Detalle"]],
         body: tableData,
         theme: 'striped',
@@ -65,36 +88,47 @@ export const generateSingleTrainingPDF = async (training) => {
         }
     });
 
-    // Descripción Enriquecida (HTML)
-    if (training.description) {
-        const startY = doc.lastAutoTable.finalY + 12;
+    currentY = doc.lastAutoTable.finalY + 12;
 
-        // Título de la sección
+
+    // 3. DESCRIPCIÓN CON MÁRGENES Y SALTO DE PÁGINA
+
+    if (training.description) {
+        // Verificar si la cabecera de "Descripción" entra en la página actual
+        if (currentY + 15 > 270) { 
+            doc.addPage();
+            currentY = 20; // Margen superior en la nueva página
+        }
+
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(0);
-        doc.text("Descripción / Programa:", 14, startY);
+        doc.text("Descripción / Programa:", marginX, currentY);
+        currentY += 4;
 
-        // Crear un contenedor temporal oculto para procesar el HTML
-        const container = document.createElement("div");
-        container.style.width = "170mm";
-        container.style.fontFamily = "helvetica, sans-serif";
-        container.style.fontSize = "11pt";
-        container.style.lineHeight = "1.4";
-        container.style.color = "#333333";
-        container.innerHTML = training.description;
+        // Limpiar/parsear HTML básico (convertir <br> y <p> en saltos de línea para que no rompa el layout)
+        const tempDiv = document.createElement("div");
+        tempDiv.style.width = "170mm";
+        tempDiv.style.fontFamily = "helvetica, sans-serif";
+        tempDiv.style.fontSize = "10pt";
+        tempDiv.style.lineHeight = "1.4";
+        tempDiv.style.color = "#212529";
+        tempDiv.innerHTML = training.description;
 
-        // Convertir y renderizar el HTML procesado dentro del PDF
-        await doc.html(container, {
-            x: 14,
-            y: startY + 4,
+        await doc.html(tempDiv, {
+            x: marginX,
+            y: currentY,
             width: 170,
             windowWidth: 650,
-            autoPaging: 'text', 
+            // Definición estricta de márgenes superior e inferior en los saltos de página
+            margin: [20, 14, 20, 14], 
+            autoPaging: 'text',
         });
     }
 
-    // Nombre de archivo formateado
+
+    // 4. GUARDAR ARCHIVO
+    
     const cleanTitle = (training.title || `capacitacion_${training.id}`)
         .toLowerCase()
         .replace(/[^a-z0-9]/g, "_");
