@@ -27,6 +27,7 @@ export const TrainingTable = () => {
         totalPages,
         handlerLoadingTraining,
         handlerDeleteTraining,
+        handlerExportPdf,
     } = useContext(TrainingContext);
 
     const renderMode = (mode) => {
@@ -90,6 +91,18 @@ export const TrainingTable = () => {
         });
     }
 
+    const onClickExportPdf = async (id, title) => {
+        try {
+            await handlerExportPdf(id, title);
+        } catch (error) {
+            Swal.fire({
+                title: "Error al exportar",
+                text: "No se pudo generar el archivo PDF de la capacitación.",
+                icon: "error"
+            });
+        }
+    };
+
     return (
         <>
             <div className="modal fade" id="viewTrainingModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -143,7 +156,16 @@ export const TrainingTable = () => {
                                         Ver más
                                     </button>
                                 </p>
-                                {writeable && (login.provinceId == cap.province?.id || isSAdmin) && ( isAdmin || cap.userId == login.id) &&
+                                <p>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-danger btn-sm w-100"
+                                        onClick={() => handlerExportPdf(cap)}
+                                    >
+                                        <i className="bi bi-file-earmark-pdf me-1"></i> Exportar PDF
+                                    </button>
+                                </p>
+                                {writeable && (login.provinceId == cap.province?.id || isSAdmin) && (isAdmin || cap.userId == login.id) &&
                                     <>
                                         <p>
                                             <button className="btn btn-edit" onClick={() => onClickEditTraining(cap.id)}>

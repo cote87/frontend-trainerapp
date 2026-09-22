@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { deleteTraining, getTraining, getTrainings, saveTraining } from "../services/TrainingService"
-
+import { deleteTraining, getTraining, getTrainings, saveTraining } from "../services/TrainingService";
+import { generateSingleTrainingPDF } from "../utils/generatePDF";
 export const ONLINE = "ONLINE";
 export const ONSITE = "ONSITE";
 export const HYBRID = "HYBRID";
@@ -23,7 +23,7 @@ const initialTraining = {
             id: 0,
             name: '',
         },
-        role:''
+        role: ''
     }
 }
 
@@ -31,7 +31,7 @@ const initialSearchFilters = {
     title: "",
     organizer: "",
     startDateFrom: new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
-    startDateTo:  new Date(new Date().setFullYear(new Date().getFullYear() + 2)).toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
+    startDateTo: new Date(new Date().setFullYear(new Date().getFullYear() + 2)).toLocaleDateString('sv-SE', { timeZone: 'America/Argentina/Buenos_Aires' }),
     mode: "",
     provinceId: null,
     thematicId: null,
@@ -115,7 +115,7 @@ export const useTrainings = () => {
         }
     };
 
-    const handlerDeleteTraining = async(id) => {
+    const handlerDeleteTraining = async (id) => {
         try {
             await deleteTraining(id);
             loadTrainings(0);
@@ -123,6 +123,17 @@ export const useTrainings = () => {
             throw error;
         }
     }
+
+    const handlerExportPdf = async (training) => {
+        try {
+            if (training) {
+                await generateSingleTrainingPDF(training);
+            }
+        } catch (error) {
+            console.error("Error al exportar el PDF:", error);
+        }
+    };
+
 
     return {
         initialSearchFilters,
@@ -134,6 +145,7 @@ export const useTrainings = () => {
         totalPages,
         pageable,
         totalElements,
+        handlerExportPdf,
         setSearchFilters,
         clearFilters,
         setPage,

@@ -95,6 +95,20 @@ export const saveTraining = async (data) => {
 
 }
 
+// TrainingService.js
+
+export const exportTrainingPdf = async (id) => {
+    try {
+        const response = await api.get(`${API_URL}capacitaciones/${id}/pdf`, {
+            responseType: 'blob', 
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error al exportar la capacitación a PDF:", error);
+        throw error;
+    }
+};
+
 export const deleteTraining = async (id) => {
     test && console.log("deleteTraining");
     try {
