@@ -18,6 +18,7 @@ import { TrainingView } from "../components/Training/TrainingView";
 import { ProfileForm } from "../auth/pages/ProfileForm";
 import { ResearchProvider } from "../context/Research/ResearchProvider";
 import { ResearchsListPage } from "../pages/ResearchsListPage";
+import { AuditPage } from "../pages/AuditPage";
 
 export const TrainerAppRoutes = () => {
 
@@ -48,6 +49,7 @@ export const TrainerAppRoutes = () => {
                                 <Route path="capacitaciones" element={<TrainingsListPage />} />
                                 <Route path="homepage" element={<HomePage />} />
                                 <Route path="perfil" element={<Profile />} />
+                                <Route path="auditLog" element={<AuditPage />} />
                                 <Route path="editarPerfil" element={<ProfileForm />} />
                                 <Route path="metrics/map" element={<MetricMap></MetricMap>} />
                                 {login.user.authorities.includes("KEY_READ_TRAINERS") && <Route path="formadores" element={<TrainerListPage />} />}

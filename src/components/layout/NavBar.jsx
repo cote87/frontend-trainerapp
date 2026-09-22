@@ -15,6 +15,7 @@ export const NavBar = () => {
     const trainersReader = login.user.authorities.includes("KEY_READ_TRAINERS");
     const metricsReader = login.user.authorities.includes("KEY_READ_METRICS");
     const researchsReader = login.user.authorities.includes("KEY_READ_RESEARCHS");
+    const sadminPermission = login.user.authorities.includes("ROLE_SADMIN");
 
     const onClickLogout = () => {
         handlerLogout();
@@ -55,6 +56,12 @@ export const NavBar = () => {
                                 <NavLink className="nav-link" to='/usuarios'>Usuarios</NavLink>
                             </li>
                         }
+                        {sadminPermission &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to='/auditLog'>Audit Log</NavLink>
+                            </li>
+                        }
+
                         {metricsReader &&
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
