@@ -25,9 +25,11 @@ export const TrainingTable = () => {
         loading,
         page,
         totalPages,
+        totalElements,
         handlerLoadingTraining,
         handlerDeleteTraining,
         handlerExportPdf,
+        handlerExportListPdf, // 👈 Se agrega el handler para la lista completa
     } = useContext(TrainingContext);
 
     const renderMode = (mode) => {
@@ -40,6 +42,18 @@ export const TrainingTable = () => {
                 return "Presencial+Online";
             default:
                 return "-";
+        }
+    };
+
+    const onClickExportList = async () => {
+        try {
+            await handlerExportListPdf();
+        } catch (error) {
+            Swal.fire({
+                title: "Error al exportar",
+                text: error.message === "No hay datos para exportar" ? "No hay capacitaciones que coincidan con la búsqueda." : "No se pudo generar el listado en PDF.",
+                icon: "error"
+            });
         }
     };
 
@@ -86,14 +100,13 @@ export const TrainingTable = () => {
                         icon: "success"
                     });
                 }
-
             }
         });
     }
 
-    const onClickExportPdf = async (id, title) => {
+    const onClickExportPdf = async (training) => {
         try {
-            await handlerExportPdf(id, title);
+            await handlerExportPdf(training);
         } catch (error) {
             Swal.fire({
                 title: "Error al exportar",
@@ -111,6 +124,19 @@ export const TrainingTable = () => {
                         <TrainingView />
                     </div>
                 </div>
+            </div>
+
+            <div className="d-flex justify-content-between align-items-center mb-3 px-1">
+                <span className="text-muted small">
+                    Resultados encontrados: <strong>{totalElements}</strong>
+                </span>
+                <button
+                    type="button"
+                    className="btn btn-danger btn-sm"
+                    onClick={onClickExportList}
+                >
+                    <i className="bi bi-file-earmark-pdf me-1"></i> Exportar Resultados
+                </button>
             </div>
 
             <div className="list-group shadow-sm">
@@ -159,10 +185,10 @@ export const TrainingTable = () => {
                                 <p>
                                     <button
                                         type="button"
-                                        className="btn btn-outline-danger btn-sm w-100"
-                                        onClick={() => handlerExportPdf(cap)}
+                                        className="btn btn-outline-danger btn-sm w-50"
+                                        onClick={() => onClickExportPdf(cap)}
                                     >
-                                        <i className="bi bi-file-earmark-pdf me-1"></i> Exportar PDF
+                                        <i className="bi bi-file-earmark-pdf me-1"></i> Exportar
                                     </button>
                                 </p>
                                 {writeable && (login.provinceId == cap.province?.id || isSAdmin) && (isAdmin || cap.userId == login.id) &&
@@ -186,7 +212,5 @@ export const TrainingTable = () => {
                 <Paginator2 page={page} totalPages={totalPages} searchFunction={loadTrainings} />
             </div>
         </>
-
     );
 };
-

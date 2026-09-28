@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-// Tu función existente para formadores
+
 export const generatePDF = (trainers) => {
     const doc = new jsPDF();
 
@@ -32,8 +32,6 @@ export const generatePDF = (trainers) => {
     doc.save("formadores.pdf");
 };
 
-
-
 export const generateSingleTrainingPDF = async (training) => {
     const doc = new jsPDF({
         unit: "mm",
@@ -43,9 +41,6 @@ export const generateSingleTrainingPDF = async (training) => {
     const marginX = 14;
     const maxLineWidth = 180;
 
-    // ==========================================
-    // 1. TÍTULO DINÁMICO
-    // ==========================================
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.setTextColor(33, 37, 41);
@@ -65,9 +60,6 @@ export const generateSingleTrainingPDF = async (training) => {
     doc.setTextColor(108, 117, 125);
     currentY += 8;
 
-    // ==========================================
-    // 2. TABLA DE DATOS PRINCIPALES
-    // ==========================================
     const tableData = [
         ["Temática", training.thematic?.name || "-"],
         ["Modalidad", training.mode || "-"],
@@ -91,9 +83,6 @@ export const generateSingleTrainingPDF = async (training) => {
 
     currentY = doc.lastAutoTable.finalY + 4;
 
-    // ==========================================
-    // 3. RENDERIZADO FLUIDO DEL TEXTO HTML SIN DESFASE
-    // ==========================================
     if (training.description) {
         if (currentY + 15 > 270) { 
             doc.addPage();
@@ -173,12 +162,62 @@ export const generateSingleTrainingPDF = async (training) => {
         }
     }
 
-    // ==========================================
-    // 4. GUARDAR ARCHIVO
-    // ==========================================
     const cleanTitle = (training.title || `capacitacion_${training.id}`)
         .toLowerCase()
         .replace(/[^a-z0-9]/g, "_");
 
     doc.save(`${cleanTitle}.pdf`);
+};
+
+
+export const generateTrainingListPDF = async (trainings) => {
+    const doc = new jsPDF("landscape");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("Listado de Capacitaciones", 14, 20);
+
+    const renderMode = (mode) => {
+        switch (mode) {
+            case "ONSITE": return "Presencial";
+            case "ONLINE": return "Online";
+            case "HYBRID": return "Presencial+Online";
+            default: return "-";
+        }
+    };
+
+    const tableColumn = ["Título", "Temática", "Modalidad", "Organizador", "Fecha de Inicio", "Provincia"];
+    
+    const tableRows = trainings.map(cap => [
+        cap.title || "-",
+        cap.thematic?.name || "-",
+        renderMode(cap.mode),
+        cap.organizer || "-",
+        cap.startDate ? cap.startDate.split('-').reverse().join('/') : "a confirmar",
+        cap.province?.name || "-"
+    ]);
+
+    autoTable(doc, {
+        head: [tableColumn],
+        body: tableRows,
+        startY: 25,
+        styles: { 
+            fontSize: 9, 
+            cellPadding: 3,
+            font: "helvetica"
+        },
+        headStyles: { 
+            fillColor: [52, 58, 64],
+            textColor: 255,
+            fontStyle: 'bold'
+        },
+        alternateRowStyles: { 
+            fillColor: [245, 245, 245] 
+        },
+        columnStyles: {
+            0: { cellWidth: 70 },
+        }
+    });
+
+    doc.save("Listado_Capacitaciones_Filtrado.pdf");
 };

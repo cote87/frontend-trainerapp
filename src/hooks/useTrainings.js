@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { deleteTraining, getTraining, getTrainings, saveTraining } from "../services/TrainingService";
-import { generateSingleTrainingPDF } from "../utils/generatePDF";
+import { generateSingleTrainingPDF, generateTrainingListPDF } from "../utils/generatePDF";
 export const ONLINE = "ONLINE";
 export const ONSITE = "ONSITE";
 export const HYBRID = "HYBRID";
@@ -134,6 +134,41 @@ export const useTrainings = () => {
         }
     };
 
+    const handlerExportListPdf = async () => {
+        try {
+            setLoading(true); 
+
+          
+            const response = await getTrainings({
+                page: 0,
+                size: 999999, 
+                title,
+                organizer,
+                startDateFrom,
+                startDateTo,
+                mode,
+                provinceId,
+                thematicId,
+                sortBy,
+                sortDir
+            });
+
+            const allFilteredTrainings = response.data.content ?? response.data ?? [];
+
+            if (allFilteredTrainings.length === 0) {
+                throw new Error("No hay datos para exportar");
+            }
+
+            await generateTrainingListPDF(allFilteredTrainings);
+
+        } catch (error) {
+            console.error("Error al exportar la lista a PDF:", error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     return {
         initialSearchFilters,
@@ -146,6 +181,7 @@ export const useTrainings = () => {
         pageable,
         totalElements,
         handlerExportPdf,
+        handlerExportListPdf,
         setSearchFilters,
         clearFilters,
         setPage,
